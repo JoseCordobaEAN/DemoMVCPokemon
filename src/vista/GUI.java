@@ -11,6 +11,7 @@ import modelo.Pokemon;
 
 /**
  * Interfaz Grafica para el parcial 2
+ *
  * @author Jose Cordoba
  */
 public class GUI extends javax.swing.JFrame {
@@ -22,6 +23,8 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         pikaVida.setMaximum(pkm1.getHp());
         bulvaVida.setMaximum(pkm2.getHp());
+        pikaVida.setValue(pkm1.getHp());
+        bulvaVida.setValue(pkm2.getHp());
     }
 
     /**
@@ -60,8 +63,10 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Pikachu.png"))); // NOI18N
 
         bulvaVida.setValue(100);
+        bulvaVida.setStringPainted(true);
 
         pikaVida.setValue(100);
+        pikaVida.setStringPainted(true);
 
         jLabel3.setText("Pikachu LVL 60");
 
@@ -233,9 +238,20 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        int reiniciar = JOptionPane.showConfirmDialog(null, 
+        int reiniciar = JOptionPane.showConfirmDialog(null,
                 "Desea reiniciar?", "", JOptionPane.YES_NO_OPTION);
-        System.out.println(reiniciar); 
+        if (reiniciar == 0) {
+            jButton1.setEnabled(true);
+            jButton2.setEnabled(true);
+            jButton3.setEnabled(true);
+            jButton4.setEnabled(true);
+            pkm1 = new Pokemon("Pikachu", 100, 60, 30, 30);
+            pkm2 = new Pokemon("Bulvasaur", 120, 60, 40, 10);
+            pikaVida.setMaximum(pkm1.getHp());
+            bulvaVida.setMaximum(pkm2.getHp());
+            pikaVida.setValue(pkm1.getHp());
+            bulvaVida.setValue(pkm2.getHp());
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -243,6 +259,7 @@ public class GUI extends javax.swing.JFrame {
         consola.setText(gym.atacar(1));
         pikaVida.setValue(pkm1.getcHp());
         bulvaVida.setValue(pkm2.getcHp());
+        mantenimiento();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -278,9 +295,8 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
-    
     Pokemon pkm1 = new Pokemon("Pikachu", 100, 60, 30, 30),
-            pkm2 = new Pokemon("Bulvasaur", 120, 60, 80, 10);
+            pkm2 = new Pokemon("Bulvasaur", 120, 60, 40, 10);
     ArenaPkm gym = new ArenaPkm(pkm1, pkm2);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar bulvaVida;
@@ -302,4 +318,16 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JProgressBar pikaVida;
     // End of variables declaration//GEN-END:variables
+
+    private void mantenimiento() {
+        if (pkm1.getcHp() < 1 || pkm2.getcHp() < 1) {
+            JOptionPane.showMessageDialog(null, "Terminó la batalla el ganador es "
+                    + (pkm1.getcHp() > 0 ? pkm1.getNombre() : pkm2.getNombre()));
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

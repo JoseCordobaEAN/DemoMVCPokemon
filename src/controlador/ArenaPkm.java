@@ -70,7 +70,7 @@ public class ArenaPkm {
             case 1:
                 int dano = (10 + atacante.getcAtk() - defensor.getcDef());
                 dano = dano > 0 ? dano : 1;
-                defensor.setcHp(dano);
+                defensor.setcHp(defensor.getcHp()-dano);
                 resultado = atacante.getNombre() + " uso taclear " + defensor.getNombre()
                         + " tomo " + dano + " puntos de daño";
                 break;
